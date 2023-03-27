@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "skia_learn",
+    "slug": "skia_learn",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "skia_learn"
+}
