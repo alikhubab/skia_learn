@@ -109,7 +109,7 @@ def reactNativeArchitectures() {
 }
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
+    ndkVersion ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
