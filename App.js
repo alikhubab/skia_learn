@@ -1,7 +1,18 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Canvas, Circle, Group, Oval, Paint, RadialGradient, Rect, SweepGradient, vec} from "@shopify/react-native-skia";
+import {
+    BlurMask,
+    Canvas,
+    Circle,
+    Group,
+    Oval,
+    Paint,
+    RadialGradient,
+    Rect,
+    SweepGradient,
+    vec
+} from "@shopify/react-native-skia";
 import {useWindowDimensions} from 'react-native';
 
 export default function App() {
@@ -10,7 +21,7 @@ export default function App() {
     const rct = {x: center.x - 90, y: center.y - 50, width: 180, height: 100}
     return (
         <Canvas style={{flex: 1}}>
-            <Circle r={25} c={center}>
+            <Circle r={15} c={center}>
                 <RadialGradient c={vec(center.x + 25, center.y - 10)} r={50} colors={["lightblue", "cyan"]}/>
             </Circle>
             {/*<Paint style={"stroke"} strokeWidth={18}>*/}
@@ -28,6 +39,7 @@ export default function App() {
                     c={vec(100, 100)}
                     colors={["cyan", "magenta", "yellow",]}
                 />
+                <BlurMask blur={5} style={"inner"}/>
             </Group>
         </Canvas>
     )
