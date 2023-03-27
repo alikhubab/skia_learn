@@ -5,13 +5,14 @@ import {
     BlurMask,
     Canvas,
     Circle,
-    Group,
+    Group, Image,
     Oval,
-    Paint,
+    Paint, Path,
     RadialGradient,
     Rect,
     SweepGradient,
-    vec
+    vec,
+    useImage, Skia
 } from "@shopify/react-native-skia";
 import {useWindowDimensions} from 'react-native';
 
@@ -19,27 +20,27 @@ export default function App() {
     const {height, width, scale, fontScale} = useWindowDimensions();
     const center = vec(width / 2, height / 2)
     const rct = {x: center.x - 90, y: center.y - 50, width: 180, height: 100}
+    const mzd = useImage(require('./assets/mzd.jpg'))
+    const star = Skia.Path.MakeFromSVGString(
+        "M 128 0 L 168 80 L 256 93 L 192 155 L 207 244 L 128 202 L 49 244 L 64 155 L 0 93 L 88 80 L 128 0 Z"
+    );
     return (
-        <Canvas style={{flex: 1}}>
-            <Circle r={15} c={center}>
-                <RadialGradient c={vec(center.x + 25, center.y - 10)} r={50} colors={["lightblue", "cyan"]}/>
-            </Circle>
-            {/*<Paint style={"stroke"} strokeWidth={18}>*/}
-            {/*    <SweepGradient c={vec(128, 128)} colors={["blue", 'red', 'blue']}/>*/}
-            {/*</Paint>*/}
-            <Group color={"lightblue"} style={"stroke"} strokeWidth={10}>
-                <Oval rect={rct}/>
-                <Group transform={[{rotate: Math.PI / 3}, {scale: -1}]} origin={center}>
-                    <Oval rect={rct}/>
-                </Group>
-                <Group transform={[{rotate: -Math.PI / 3}, {scale: -1}]} origin={center}>
-                    <Oval rect={rct}/>
-                </Group>
-                <SweepGradient
-                    c={vec(100, 100)}
-                    colors={["cyan", "magenta", "yellow",]}
-                />
-                <BlurMask blur={5} style={"inner"}/>
+        <Canvas style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+            {/*<Path color={"lightblue"}*/}
+            {/*      style={"stroke"}*/}
+            {/*      strokeWidth={4}*/}
+            {/*      strokeJoin={'round'}*/}
+            {/*      path="M150 0 L75 200 L225 200 Z"/>*/}
+
+            <Group clip={star}>
+
+                {mzd && <Image image={mzd}
+                               x={0}
+                               y={0}
+                               fit={"cover"}
+                               width={256}
+                               height={256}/>}
+
             </Group>
         </Canvas>
     )
