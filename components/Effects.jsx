@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, useWindowDimensions} from "react-native";
 import {
     BlurMask,
-    Circle,
+    Circle, DashPathEffect,
     DiscretePathEffect,
     Group,
     Oval,
@@ -15,7 +15,31 @@ const Effects = (props) => {
     const {height, width, scale, fontScale} = useWindowDimensions();
     const center = vec(width / 2, height / 2)
     const rct = {x: center.x - 90, y: center.y - 50, width: 180, height: 100}
+    const [interval, setInterval] = useState([1, 1])
 
+
+    function updateStateWithDelay(delay, value) {
+        setTimeout(() => {
+            setInterval(prevState => [prevState[0] + value, prevState[1] + value])
+        }, delay)
+    }
+
+    function updateInterval() {
+        for (let i = 0; i < 1000; i++) {
+            const delay = 200 + i * 2;
+            updateStateWithDelay(delay, 2)
+        }
+    }
+
+    const setIntervalFunc = () => {
+        setTimeout(() => {
+            console.log("Set Interval is called")
+            setInterval(prevState => [prevState[0] + 1, prevState[1] + 1])
+        },)
+    }
+    useEffect(() => {
+        updateInterval();
+    }, [])
 
     return (
         <>
@@ -35,7 +59,8 @@ const Effects = (props) => {
                     colors={["cyan", "magenta", "yellow",]}
                 />
                 <BlurMask blur={5} style={"inner"}/>
-                <DiscretePathEffect length={12} deviation={5}/>
+                {/*<DiscretePathEffect length={12} deviation={5}/>*/}
+                <DashPathEffect intervals={interval}/>
             </Group>
         </>
     )
